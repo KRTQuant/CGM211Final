@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class PlayerController : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class PlayerController : MonoBehaviour
     public Animator anim;
 
     public Transform spriteRendTransform;
+
+    public BoxCollider2D body;
     private void Start()
     {
         rb = GameObject.Find("Player").GetComponentInChildren<Rigidbody2D>();
@@ -25,7 +28,7 @@ public class PlayerController : MonoBehaviour
             if (Input.GetKey(KeyCode.D)) //กด D
             {
 
-                Debug.Log("Key D was press");
+                //Debug.Log("Key D was press");
                 var.dirX = 1; //กำหนดทิศทาง
                 var.walkVelo = var.dirX * var.moveSpeed * Time.fixedDeltaTime; //ความเร็วในการเดิน = ทิศทางในแกน X คูณ ความเร็ว คูร เวลาที่เปลี่นแปลง(เพื่อเฉลี่ยความเร็วในแต่ละเฟรม)
                 rb.velocity = new Vector2(var.walkVelo, rb.velocity.y); //กำหนดความเร็ว
@@ -35,7 +38,7 @@ public class PlayerController : MonoBehaviour
             }
             if (Input.GetKey(KeyCode.A)) //กด A
             {
-                Debug.Log("Key A was press");
+                //Debug.Log("Key A was press");
                 var.dirX = -1; //กำหนดทิศทาง
                 var.walkVelo = var.dirX * var.moveSpeed * Time.fixedDeltaTime; //ความเร็วในการเดิน = ทิศทางในแกน X คูณ ความเร็ว คูร เวลาที่เปลี่นแปลง(เพื่อเฉลี่ยความเร็วในแต่ละเฟรม)
                 rb.velocity = new Vector2(var.walkVelo, rb.velocity.y); //กำหนดความเร็ว
@@ -45,8 +48,8 @@ public class PlayerController : MonoBehaviour
             }
             if (Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D)) //ตัดแรงหลังปล่อยปุ่ม A
             {
-                Debug.Log("cut force activated");
-                rb.velocity = new Vector2(0, rb.velocity.y); //กำหนดความเร็ว
+                //Debug.Log("cut force activated");
+                rb.velocity = new Vector2(0, rb. velocity.y); //กำหนดความเร็ว
 
                 anim.SetFloat("Speed", 0);
             }
@@ -57,11 +60,17 @@ public class PlayerController : MonoBehaviour
     {
         if(Input.GetKey(KeyCode.W) && var.jumpPower < var.highSet && !var.cannotJump && !var.isCrouch)
         {
+            anim.SetBool("IsJump", true);
             var.jumpPower += 1f;
             rb.velocity = new Vector2(rb.velocity.x, var.jumpPower);
             var.isGround = false;
 
-            anim.SetBool("IsJump", true);
+            /*if(var.jumpPower >= var.highSet)
+            {
+                Debug.Log("Jump power = Jump set");
+                var.cannotJump = true;
+                rb.velocity = new Vector2(rb.velocity.x, var.jumpPower);
+            }*/
         }
 
         else if(var.jumpPower > var.jumpSet)
@@ -136,7 +145,7 @@ public class PlayerController : MonoBehaviour
     {
         if (spriteRendTransform.transform.localScale.x > 0 && !var.FacingRight || spriteRendTransform.transform.localScale.x < 0 && var.FacingRight)
         {
-            Debug.Log("Check facing");
+            //Debug.Log("Check facing");
             var.localScale = spriteRendTransform.transform.localScale;
             var.localScale.x *= -1;
             spriteRendTransform.transform.localScale = var.localScale;
@@ -180,4 +189,6 @@ public class Variable
     //==================== Sprite =====================================
     public bool FacingRight; //เช็คทิศที่หันหน้าไป
     public Vector3 localScale; //เก็บค่า LocalScale
+    //==================== Player ====================================
+    public int health = 100;
 }

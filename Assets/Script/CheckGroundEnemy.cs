@@ -17,7 +17,7 @@ public class CheckGroundEnemy : MonoBehaviour
         if(collision.gameObject.CompareTag("Ground"))
         {
             enemy.isGround = true;
-            Debug.Log("Enemy check ground :" + enemy.isGround.ToString());
+           // Debug.Log("Enemy check ground :" + enemy.isGround.ToString());
         }
     }
 

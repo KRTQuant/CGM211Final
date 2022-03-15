@@ -32,6 +32,6 @@ public class RandomSpawn : MonoBehaviour
         spawnGhoulMonster = Instantiate(ghoul, spawnPointList[tempInt].transform.position, Quaternion.identity);
         spawnGhoulMonster.transform.parent = MonsterKeeper.transform;
         spawnGhoulMonster.SetActive(true);
-        Debug.Log("Ghoul Spawned");
+        //Debug.Log("Ghoul Spawned");
     }
 }

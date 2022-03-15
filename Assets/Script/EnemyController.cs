@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,6 +15,7 @@ public class EnemyController : MonoBehaviour
 
     public Transform SpriteRen;
 
+    public ScoreManager sm;
     //==================================== Logic and Physics =========================================
 
     public bool isGround;
@@ -41,6 +42,7 @@ public class EnemyController : MonoBehaviour
         checkGround = GetComponentInChildren<BoxCollider2D>();
         SpriteRen = GetComponentInChildren<Transform>();
         anim = GetComponentInChildren<Animator>();
+        sm = GameObject.Find("Canvas").GetComponent<ScoreManager>();
     }
 
     private void FaceToPlayer()
@@ -48,12 +50,12 @@ public class EnemyController : MonoBehaviour
         localScale = transform.localScale;
         if(dirX > 0)
         {
-            Debug.Log("Face right");
+            //Debug.Log("Face right");
             localScale.x = -1f;
         }
         if(dirX < 0)
         {
-            Debug.Log("Face left");
+            //Debug.Log("Face left");
             localScale.x = 1f;
         }
         transform.localScale = localScale;
@@ -73,7 +75,7 @@ public class EnemyController : MonoBehaviour
             facingRight = false;
         }
 
-        Debug.Log("Facing right : " + facingRight.ToString());
+        //Debug.Log("Facing right : " + facingRight.ToString());
     }
 
     private void MoveToPlayer()
@@ -89,13 +91,15 @@ public class EnemyController : MonoBehaviour
     public void TakeDamage(int damage)
     {
         health -= damage;
-        Debug.Log("Damage taken");
+        //Debug.Log("Damage taken");
     }
 
     public void CheckDead()
     {
         if(health <= 0)
         {
+            Debug.Log("Send score");
+            sm.UpdateScore(200);
             gameObject.SetActive(false);
         }
     }

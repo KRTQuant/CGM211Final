@@ -19,17 +19,17 @@ public class CheckGroundPlayer : MonoBehaviour
             player.anim.SetBool("IsGround", true);
             player.anim.SetBool("IsFalling", false);
             player.anim.SetFloat("Speed", 0f);
-            Debug.Log("Stand on ground");
+            //Debug.Log("Stand on ground");
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Ground")) ; //ถ้าชนกับสิ่งที่ Tag "Ground" จะทำงาน
+        if (collision.gameObject.CompareTag("Ground")); //ถ้าชนกับสิ่งที่ Tag "Ground" จะทำงาน
         {
             player.var.isGround = false;
             player.anim.SetBool("IsGround", false);
-            Debug.Log("Jump off");
+            //Debug.Log("Jump off");
         }
     }
 }

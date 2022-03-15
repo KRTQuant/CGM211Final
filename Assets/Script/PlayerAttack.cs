@@ -13,13 +13,13 @@ public class PlayerAttack : MonoBehaviour
     public int damage;
     public Collider2D[] enemiesToDamage;
 
-    // Update is called once per frame
     void Update()
     {
         if (timeBtwAttack <= 0)
         {
             if(Input.GetKeyDown(KeyCode.J) || Input.GetKeyDown(KeyCode.K))
             {
+
                 enemiesToDamage = Physics2D.OverlapCircleAll(attackPos.position, attackRange, whatIsEnemies);
                 for(int i = 0; i < enemiesToDamage.Length; i++)
                 {
@@ -32,11 +32,5 @@ public class PlayerAttack : MonoBehaviour
         {
             timeBtwAttack -= Time.fixedDeltaTime;
         }
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(attackPos.position,attackRange);
     }
 }
